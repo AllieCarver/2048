@@ -130,6 +130,7 @@ class GUI:
                         (col * TILE_SIZE + BORDER_SIZE,
                         row * TILE_SIZE + BORDER_SIZE))
                 except IndexError:
+                    self._game.set_tile(row, col, 0)
                     self._screen.blit(self._tiles[0],
                         (col * TILE_SIZE + BORDER_SIZE,
                         row * TILE_SIZE + BORDER_SIZE))
