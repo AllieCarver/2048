@@ -58,12 +58,6 @@ class GUI:
         self._background.fill((188, 173, 161))
         self._center_height = (self._rows * TILE_SIZE + 2 * BORDER_SIZE)/2
         self._center_width = (self._cols * TILE_SIZE + 2 * BORDER_SIZE)/2
-        #self._frame.add_button('New Game', self.start)
-        #self._frame.add_button('Undo', self.undo)
-        #self._frame.add_button('2048 Mode', self.start_2048)
-        #self._frame.set_keydown_handler(self.keydown)
-        #self._frame.set_draw_handler(self.draw)
-        #self._frame.set_mouseclick_handler(self.click)
         self._game = game
         self._tiles_sprite, dummy_rect  = load_image(IMAGENAME, alpha=True)
         self._tiles = []
