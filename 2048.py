@@ -1,8 +1,10 @@
 """
 Clone of 2048 game.
 """
+
 import gui
-import random 
+import random
+
 # Directions, DO NOT MODIFY
 UP = 1
 DOWN = 2
@@ -15,6 +17,7 @@ OFFSETS = {UP: (1, 0),
            DOWN: (-1, 0),
            LEFT: (0, 1),
            RIGHT: (0, -1)}
+    
 #merge I stole from Benjamin Shieh because it's awesome :)
 def merge(line):
     """
@@ -112,6 +115,9 @@ class TwentyFortyEight:
                                                    xrange(self._height)]
         
     def reset_2048_mode(self):
+        """
+        reset game in 2048 mode
+        """
         
         self.reset()
         self._two_four[9] = 2048
@@ -140,10 +146,13 @@ class TwentyFortyEight:
         return self._width
     
     def game_over(self):
+        """
         #iterates through a list of grid coordinate tuples
         #usings self._neighbour_offsets [(0,1),(0,-1),(1,0),(-1,0)]
         #to check neighbours  
         #returns True for 0's and neighbouring pairs or game over
+        """
+
         for cord in self._coordinates:
             for offset in self._neighbour_offsets:
                 if 0 <= cord[0] + offset[0] < self._height:
@@ -159,12 +168,20 @@ class TwentyFortyEight:
         return True
     
     def have_2048(self):
+        """
+        return true if 2048 has been reached
+        """
+        
         if 2048 in [self.get_tile(tile[0], tile[1])
                     for tile in self._coordinates]:
             self._2048 = True
             return True
         
     def get_message(self):
+        """
+        return game message
+        """
+        
         return self._message
     
     def move(self, direction):
@@ -202,15 +219,16 @@ class TwentyFortyEight:
     
         if self.game_over():
             self._message = 'Game Over'
-#            print 'Game Over'
 
         if not self._continued:
             if self.have_2048():
                 self._message = '2048!' 
-#        print self._move_history
 
     def undo(self):
-        #if (self._move_index%15)  > 0:
+        """
+        undo up to 15 moves
+        """
+        
         previous_grid = self._move_history[(self._move_index%15)-1]
 
         for cord in self._coordinates:
@@ -236,13 +254,16 @@ class TwentyFortyEight:
         """
         Set the tile at position row, col to have the given value.
         """
+        
         self._grid[row][col] = value
 
     def get_tile(self, row, col):
         """
         Return the value of the tile at position row, col.
         """
+        
         return self._grid[row][col]
+
 
 gui.run_gui(TwentyFortyEight(4,4))
 

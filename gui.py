@@ -97,7 +97,10 @@ class GUI:
         elif key == K_m:
             self._game.reset_2048_mode()
         elif key == K_u:
-            self._game.undo()
+            try:
+                self._game.undo()
+            except KeyError:
+                pass
         elif key == K_UP:
             self._game.move(UP)
         elif key == K_DOWN:
@@ -128,9 +131,14 @@ class GUI:
                     val = 0
                 else:
                     val = int(math.log(tile, 2))
-                self._screen.blit(self._tiles[val],
-                    (col * TILE_SIZE + BORDER_SIZE,
-                     row * TILE_SIZE + BORDER_SIZE))
+                try:
+                    self._screen.blit(self._tiles[val],
+                        (col * TILE_SIZE + BORDER_SIZE,
+                        row * TILE_SIZE + BORDER_SIZE))
+                except IndexError:
+                    self._screen.blit(self._tiles[0],
+                        (col * TILE_SIZE + BORDER_SIZE,
+                        row * TILE_SIZE + BORDER_SIZE))
         self._message = self._game.get_message()
         
             
@@ -169,8 +177,7 @@ class GUI:
 
     def undo(self):
         if self._game._message != "Game Over":
-            if self._game._move_index % 15 > 0:
-                self._game.undo()
+            self._game.undo()
                 
     def start(self):
         """
@@ -180,11 +187,6 @@ class GUI:
         self._game._message = 'first load'
         self.main()
         
-    def start_2048(self):
-        """
-        Start game in 2048 mode
-        """
-        self._game.reset_2048_mode()
 def run_gui(game):
     """
     Instantiate and run the GUI.
