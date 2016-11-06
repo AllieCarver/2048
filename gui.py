@@ -22,8 +22,18 @@ LEFT = 3
 RIGHT = 4
 
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 def load_image(name, colorkey=None, alpha=False):
-    fullname = os.path.join('data', name)
+    fullname = resource_path(os.path.join('data', name))
     try:
         image = pygame.image.load(fullname)
     except pygame.error, message:
